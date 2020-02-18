@@ -1,0 +1,31 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Majstorce",
+		"_postman_id": "2b51f9a6-3c2f-6ec2-8aa1-9f4e6e167ff9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"url": "{{HOST}}/api/latest/client/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"malezan@gmail.com\",\n\t\"password\":\"12121212\"\n}"
+				},
+				"description": "REgister CLient "
+			},
+			"response": []
+		}
+	]
+}

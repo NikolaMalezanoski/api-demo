@@ -1,0 +1,757 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Majstorce API",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://api.majstorce.mk/api/latest",
+            "description": "Production Enviroment"
+        },
+        {
+            "url": "http://api.majstorce.mk.local/api/latest",
+            "description": "Local Enviroment - with host"
+        },
+        {
+            "url": "http://localhost/api/latest",
+            "description": "Local Enviroment -  docker"
+        }
+    ],
+    "paths": {
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "List categories  filtered by tags",
+                "description": "List categories  filtered by tags",
+                "operationId": "get_categories",
+                "parameters": [
+                    {
+                        "name": "find-by-tag",
+                        "in": "query",
+                        "description": "Find category by tag",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "array list of categories",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#components/schemas/ResponseCategory"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Create new category",
+                "description": "Create new category",
+                "operationId": "Categories::index_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/RequestCategory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Insert CAtegory was saccesfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseCategory"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/categories/{categoryId}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "List category by categoryId",
+                "description": "List category by categoryId",
+                "operationId": "get_category",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category id to be listed",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "categories",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseCategory"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Update category by categoryID",
+                "description": "Update category by categoryID",
+                "operationId": "Categories::index_put",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category id to update",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/RequestCategory"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Category update was accepted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseCategory"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Delete a category",
+                "description": "Delete Category By CategoryID",
+                "operationId": "Categories::index_delete",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category id to delete",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "array list of categories",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#components/schemas/ResponseCategory"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/cities": {
+            "get": {
+                "tags": [
+                    "City"
+                ],
+                "summary": "List cities",
+                "description": "List cities",
+                "operationId": "get_city",
+                "responses": {
+                    "200": {
+                        "description": "Array list of cities",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#components/schemas/ResponseCity"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/client/personal-details": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "description": "Cliant personal details",
+                "operationId": "PersonalDetails::getPersonalDetails_get",
+                "responses": {
+                    "200": {
+                        "description": "Registration was saccesfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseClientPersonalDetails"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Precondition failed - Invalid Data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/oauth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "description": "Cliant Login",
+                "operationId": "Login::login_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/RequestClientLogin"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registration was saccesfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseAuthorizationTokens"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid username or passsword",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    },
+                    "412": {
+                        "description": "Precondition failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth/refresh-token": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "description": "Exchange refresh token for a new access token",
+                "operationId": "RefreshTokenExchange::refreshTokenExchange_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/RequestRefreshTokenExchange"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registration was saccesfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseAuthorizationTokens"
+                                }
+                            }
+                        }
+                    },
+                    "412": {
+                        "description": "Precondition failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "description": "Cliant Registraion",
+                "operationId": "Register::register_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/RequestClientRegister"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registration was saccesfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseAuthorizationTokens"
+                                }
+                            }
+                        }
+                    },
+                    "412": {
+                        "description": "Precondition failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth/reset-password/request": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "description": "Reset Password",
+                "operationId": "ResetPassword::request_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/RequestResetPassword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Email for reset password is sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "412": {
+                        "description": "Precondition failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/oauth/reset-password/new-rassword": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "description": "Reset Password With Token",
+                "operationId": "ResetPassword::newPasswordWithToken_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/RequestResetPasswordWithToken"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucessfully update password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "412": {
+                        "description": "Precondition failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/ResponseFail"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "JWTAccessToken": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "test@majstorce.m"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "example": "MajstorMarko"
+                    },
+                    "time": {
+                        "type": "integer",
+                        "example": 1577463224
+                    },
+                    "exp": {
+                        "type": "integer",
+                        "example": 1577463224
+                    },
+                    "scope": {
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "RequestCategory": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "parent": {
+                        "type": "integer",
+                        "example": "0"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Лимар"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "се од лимарија во васио дом"
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "Лимар, limar"
+                    }
+                },
+                "type": "object"
+            },
+            "RequestClientLogin": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "test@majstorce.mk"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "Password1"
+                    }
+                },
+                "type": "object"
+            },
+            "RequestClientRegister": {
+                "required": [
+                    "email",
+                    "password",
+                    "confirmPassword",
+                    "firstName"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "test@majstorce.mk"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "Password1"
+                    },
+                    "confirmPassword": {
+                        "type": "string",
+                        "example": "Password1"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "example": "MajstorMarko"
+                    }
+                },
+                "type": "object"
+            },
+            "RequestRefreshTokenExchange": {
+                "required": [
+                    "refresh-token"
+                ],
+                "properties": {
+                    "refreshToken": {
+                        "type": "string",
+                        "example": "XXXYYYZZZaa1122"
+                    }
+                },
+                "type": "object"
+            },
+            "RequestResetPassword": {
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "test@majstorce.mk"
+                    }
+                },
+                "type": "object"
+            },
+            "RequestResetPasswordWithToken": {
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "example": "XXYYZZZ"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "Password1"
+                    },
+                    "confirmPassword": {
+                        "type": "string",
+                        "example": "Password1"
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseAuthorizationTokens": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "accessToken": {
+                        "type": "string",
+                        "example": "xxx.yyy.zzz"
+                    },
+                    "refreshToken": {
+                        "type": "string",
+                        "example": "AYZAYZ123Ayz"
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseCategory": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "parent": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseCity": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "postcode": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseClientPersonalDetails": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "emailVerified": {
+                        "type": "string"
+                    },
+                    "scope": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseFail": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "fail"
+                    },
+                    "errors": {
+                        "type": "object",
+                        "example": "{email: This Email already exists please enter another email address}"
+                    }
+                },
+                "type": "object"
+            },
+            "ResponseSuccess": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "Authorizati3on",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

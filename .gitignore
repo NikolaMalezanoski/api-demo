@@ -1,0 +1,26 @@
+.DS_Store
+
+application/cache/index.html
+!web/application/cache/index.html
+
+/application/logs/*
+!/application/logs/index.html
+
+!web/application/*/.htaccess
+
+composer.lock
+
+# IDE Files
+#-------------------------
+/nbproject/
+.idea/*
+
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+/.idea/
+/web.config
+/vendor/
